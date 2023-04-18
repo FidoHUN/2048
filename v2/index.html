@@ -11,26 +11,70 @@
             padding: 0;
         }
         #score{
-            margin: 10px
+            margin: 10px;
         }
         p{
             margin-left: 10px;
         }
+        .row{
+            display: flex;
+        }
+        .col{
+            margin-left: 10px;
+            margin-right: 10px;
+        }
     </style>
     <script>
         function main(){
-       		let canvas = document.getElementById("mainCanvas");
-       		let board = new Board();
-            board.generateStartingPosition()
-           	Renderer.render(board.state, canvas, 0);
-            board.addEventListeners(canvas);
-			board.addNeuralNetwork(canvas);
+            let board_1 = new Board();
+            board_1.generateStartingPosition()
+            let canvas_1 = document.getElementById("canvas_1");
+           	Renderer.render(board_1.state, canvas_1, 0);
+			board_1.addNeuralNetwork(canvas_1);
+
+            let board_2 = new Board();
+            board_2.generateStartingPosition()
+            let canvas_2 = document.getElementById("canvas_2");
+           	Renderer.render(board_2.state, canvas_2, 0);
+			board_2.addNeuralNetwork(canvas_2);
+
+            let board_3 = new Board();
+            board_3.generateStartingPosition()
+            let canvas_3 = document.getElementById("canvas_3");
+           	Renderer.render(board_3.state, canvas_3, 0);
+			board_3.addNeuralNetwork(canvas_3);
+
+            let board_4 = new Board();
+            board_4.generateStartingPosition()
+            let canvas_4 = document.getElementById("canvas_4");
+           	Renderer.render(board_4.state, canvas_4, 0);
+			board_4.addNeuralNetwork(canvas_4);
         }
     </script>
 </head>
 <body onload="main()">
-    <div id="score">Pont:</div><p id="points"></p>
-    <canvas id="mainCanvas" width="400px" height="400px"></canvas>
+    <div class="row">
+        <div class="col">
+            <div id="score">Pont:</div><p id="points_1"></p>
+            <canvas id="canvas_1" width="400px" height="400px"></canvas>
+        </div>
+        <div class="col">
+            <div id="score">Pont:</div><p id="points_2"></p>
+            <canvas id="canvas_2" width="400px" height="400px"></canvas>
+        </div>
+        <div class="col">
+            <div id="score">Pont:</div><p id="points_3"></p>
+            <canvas id="canvas_3" width="400px" height="400px"></canvas>
+        </div>
+        <div class="col">
+            <div id="score">Pont:</div><p id="points_4"></p>
+            <canvas id="canvas_4" width="400px" height="400px"></canvas> 
+        </div>
+    </div>
+    <script>
+        let boards = [1,1,1,1]
+    </script>
+    <script src="utils.js"></script>
     <script src="network.js"></script>
     <script src="controls.js"></script>
     <script src="board.js"></script>

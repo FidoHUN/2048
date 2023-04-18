@@ -108,7 +108,27 @@ class Renderer{
         }
         ctx.stroke();
 
-		const points = document.querySelector("#points")
-		points.innerHTML = score
+		let points;
+		switch (canvas.id) {
+			case 'canvas_1':
+				points = document.querySelector("#points_1")
+				points.innerHTML = score
+				break;
+			case 'canvas_2':
+				points = document.querySelector("#points_2")
+				points.innerHTML = score
+				break;
+			case 'canvas_3':
+				points = document.querySelector("#points_3")
+				points.innerHTML = score
+				break;
+			case 'canvas_4':
+				points = document.querySelector("#points_4")
+				points.innerHTML = score
+				break;
+		
+			default:
+				break;
+		}
 	}	
 }
