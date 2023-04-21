@@ -17,15 +17,11 @@ class Board {
 		if (!localStorage.getItem("bestBrain")) {
 			this.brain = new NeuralNetwork([16, 8, 4])
 		}else{
-			console.log('van agy')
 			const bestBrainInLocalStorage = JSON.parse(localStorage.getItem("bestBrain"))
-			this.brain = JSON.parse(localStorage.getItem("bestBrain"))
-			NeuralNetwork.mutate(this.brain,0.1)
+			this.brain = bestBrainInLocalStorage
+			let mutationPercentage = window.mutationPercentage / 100;
+			NeuralNetwork.mutate(this.brain,mutationPercentage)
 		}
-
-
-		
-		console.log(this.brain);
 
 		this.sensors = new Array(16)
 		this.aiDecision = [0, 0, 0, 0];
@@ -149,30 +145,16 @@ class Board {
 			}
 			this.checkGameOver()
 			if (this.gameOver) {
-				switch (canvas.id) {
-					case 'canvas_1':
-						boards[0] = 0;
-						break;
-					case 'canvas_2':
-						boards[1] = 0;
-						break;
-					case 'canvas_3':
-						boards[2] = 0;
-						break;
-					case 'canvas_4':
-						boards[3] = 0;
-						break;
-
-					default:
-						break;
+				if(canvas.id!==undefined){
+					let idNumber = parseInt(canvas.id.split('_')[1])
+					window.boards[idNumber-1]=0;
 				}
 				const bestScore = parseInt(localStorage.getItem("bestScore"))
 				if (this.control.score > bestScore) {
 					this.saveNeuralNetworkAndScore(this.brain)
 				}
-				console.log(boards)
-				if (boards[0] === 0 && boards[1] === 0 && boards[2] === 0 && boards[3] === 0) {
-					window.location.reload();
+				if(window.boards.every(v => v===0)){
+					window.location.reload()
 				}
 			}
 		}
@@ -218,6 +200,8 @@ class Board {
 	}
 
 	aiMove(canvas) {
+
+		// [up,down,right,left]
 
 		let minimum = 0;
 		let maximum = 3;

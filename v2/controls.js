@@ -26,7 +26,7 @@ class Control {
 			final.push(row)
 		}
 		this.mergeColUp(final)
-		if (this.arraysEqual(final, boardState)) {
+		if (this.samePosition(final, boardState)) {
 			this.invalidMove = true
 		} else {
 			this.invalidMove = false
@@ -56,7 +56,7 @@ class Control {
 			final.push(row)
 		}
 		this.mergeColDown(final)
-		if (this.arraysEqual(final, boardState)) {
+		if (this.samePosition(final, boardState)) {
 			this.invalidMove = true
 		} else {
 			this.invalidMove = false
@@ -77,7 +77,7 @@ class Control {
 			final.push(res)
 		}
 		this.mergeRowLeft(final)
-		if (this.arraysEqual(final, boardState)) {
+		if (this.samePosition(final, boardState)) {
 			this.invalidMove = true
 		} else {
 			this.invalidMove = false
@@ -99,7 +99,7 @@ class Control {
 			final.push(res)
 		}
 		this.mergeRowRight(final)
-		if (this.arraysEqual(final, boardState)) {
+		if (this.samePosition(final, boardState)) {
 			this.invalidMove = true
 		} else {
 			this.invalidMove = false
@@ -231,8 +231,8 @@ class Control {
 		return Rrow;
 	}
 
-	arraysEqual(a1, a2) {
-		return JSON.stringify(a1) == JSON.stringify(a2);
+	samePosition(board1, board2) {
+		return JSON.stringify(board1) == JSON.stringify(board2);
 	}
 }
 

@@ -5,75 +5,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        body{
-            margin: 0;
-            padding: 0;
-        }
-        #score{
-            margin: 10px;
-        }
-        p{
-            margin-left: 10px;
-        }
-        .row{
-            display: flex;
-        }
-        .col{
-            margin-left: 10px;
-            margin-right: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
     <script>
-        function main(){
-            let board_1 = new Board();
-            board_1.generateStartingPosition()
-            let canvas_1 = document.getElementById("canvas_1");
-           	Renderer.render(board_1.state, canvas_1, 0);
-			board_1.addNeuralNetwork(canvas_1);
+        function generateBoards(N){
+            window.boards=new Array(N);
+            window.boards.fill(1);
+            let row = document.createElement('div')
+            row.classList.add('row')
+            for(let i=1; i<N+1; i++ ){
+                let col = document.createElement('div')
+                col.classList.add('col')
+                let scoreContainer = document.createElement('div')
+                scoreContainer.id='score';
+                scoreContainer.innerText='Points:'
+                let score = document.createElement('p')
+                score.id=`points_${i}`;
+                let newCanvas = document.createElement('canvas');
+                newCanvas.id=`canvas_${i}`
+                newCanvas.width=400;
+                newCanvas.height=400;
+                col.appendChild(scoreContainer)
+                col.appendChild(score)
+                col.appendChild(newCanvas)
+                row.appendChild(col)
+                document.body.appendChild(row)
 
-            let board_2 = new Board();
-            board_2.generateStartingPosition()
-            let canvas_2 = document.getElementById("canvas_2");
-           	Renderer.render(board_2.state, canvas_2, 0);
-			board_2.addNeuralNetwork(canvas_2);
-
-            let board_3 = new Board();
-            board_3.generateStartingPosition()
-            let canvas_3 = document.getElementById("canvas_3");
-           	Renderer.render(board_3.state, canvas_3, 0);
-			board_3.addNeuralNetwork(canvas_3);
-
-            let board_4 = new Board();
-            board_4.generateStartingPosition()
-            let canvas_4 = document.getElementById("canvas_4");
-           	Renderer.render(board_4.state, canvas_4, 0);
-			board_4.addNeuralNetwork(canvas_4);
+                let board = new Board();
+                board.generateStartingPosition()
+                let canvas = document.getElementById(`canvas_${i}`);
+                Renderer.render(board.state, canvas, 0);
+                board.addNeuralNetwork(canvas);
+            }
         }
     </script>
 </head>
-<body onload="main()">
-    <div class="row">
-        <div class="col">
-            <div id="score">Pont:</div><p id="points_1"></p>
-            <canvas id="canvas_1" width="400px" height="400px"></canvas>
-        </div>
-        <div class="col">
-            <div id="score">Pont:</div><p id="points_2"></p>
-            <canvas id="canvas_2" width="400px" height="400px"></canvas>
-        </div>
-        <div class="col">
-            <div id="score">Pont:</div><p id="points_3"></p>
-            <canvas id="canvas_3" width="400px" height="400px"></canvas>
-        </div>
-        <div class="col">
-            <div id="score">Pont:</div><p id="points_4"></p>
-            <canvas id="canvas_4" width="400px" height="400px"></canvas> 
-        </div>
+<body onload="generateBoards(100)">
+    <div class="highScore">Highscore: <p class="highScoreValue" id="highScoreValue"></p></div>
+    <div class="slidecontainer">
+        <input type="range" min="0" max="100" value="50" step="1" class="slider" id="slider">
     </div>
-    <script>
-        let boards = [1,1,1,1]
-    </script>
+    <p style="display: none;" class="value">Value: <output id="value"></output></p>
+    <div class="hint">
+        <p>generate similar networks    <<------------------------------o------------------------------>>    generate different networks</p>
+    </div>
+    <script src="values.js"></script>
     <script src="utils.js"></script>
     <script src="network.js"></script>
     <script src="controls.js"></script>
